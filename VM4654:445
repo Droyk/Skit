@@ -5,8 +5,8 @@
 
 const scriptletGlobals = {
     "warOrigin": "chrome-extension://cjpalhdlnbpafiamejdnhcphjbkeiagm/web_accessible_resources",
-    "warSecret": "jkmzy5e4wx0e7kucd8",
-    "bcSecret": "lniwj75sqaacq2sow9",
+    "warSecret": "a4xtkw9z9q9fcnf3tv",
+    "bcSecret": "kmp7jkkoowzmaygqsg",
     "logLevel": 1
 };
 
