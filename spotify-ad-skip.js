@@ -1,54 +1,41 @@
-/// spotify-ad-skip.js
-/// alias sas.js
 (function () {
     'use strict';
-    console.log('--- [SUCCESS] Spotify Surgical-Skip Active ---');
+    // The "Pulse" - if you see this in F12, the script survived line 1
+    console.log('--- [SPOTIFY-AD-SKIP] Script Injected & Running ---');
 
-    // 1. SURGICAL JSON PRUNER
-    // Instead of blocking fetch, we wait for the response and delete the ads property.
-    const originalFetch = window.fetch;
-    window.fetch = async (...args) => {
-        const response = await originalFetch(...args);
-        const url = args[0]?.url || args[0];
+    var _fetch = window.fetch;
+    window.fetch = function() {
+        var args = arguments;
+        var url = args[0];
+        if (typeof url === 'object') url = url.url;
 
-        // Only target the specific spclient ad-logic endpoints
-        if (typeof url === 'string' && url.includes('spclient') && url.includes('ad-logic')) {
-            const clone = response.clone();
-            try {
-                const data = await clone.json();
-                // We don't delete the whole response, we just empty the ad slots.
-                if (data.adSlots) data.adSlots = [];
-                if (data.ads) data.ads = [];
-                
-                return new Response(JSON.stringify(data), {
-                    status: response.status,
-                    statusText: response.statusText,
-                    headers: response.headers
+        // Surgical Check: Only touch the ad-logic JSON
+        if (typeof url === 'string' && url.indexOf('spclient') > -1 && url.indexOf('ad-logic') > -1) {
+            return _fetch.apply(this, args).then(function(response) {
+                return response.clone().json().then(function(data) {
+                    // Clean the data without breaking the object structure
+                    if (data.adSlots) data.adSlots = [];
+                    if (data.ads) data.ads = [];
+                    return new Response(JSON.stringify(data), {
+                        status: response.status,
+                        headers: response.headers
+                    });
+                }).catch(function() { 
+                    return response; // Not JSON? Return untouched to prevent SyntaxError
                 });
-            } catch (e) {
-                return response; // If it's not JSON (like a script chunk), return it UNTOUCHED
-            }
+            });
         }
-        return response;
+        return _fetch.apply(this, args);
     };
 
-    // 2. DOM-BASED SKIPPER (Keep your working observer)
-    const AD_SELECTORS = [
-        '[data-testid="ad-label"]',
-        '[aria-label*="Advertisement" i]',
-        '[data-testid="advertisement"]',
-        '.encore-advertising-set'
-    ];
-
-    const observer = new MutationObserver(() => {
-        const hasAd = AD_SELECTORS.some(sel => document.querySelector(sel));
-        if (hasAd) {
-            const skipBtn = document.querySelector('[data-testid="control-button-skip-forward"]');
-            if (skipBtn && !skipBtn.disabled) {
-                skipBtn.click();
-            }
+    // DOM Skipper
+    var checkAd = function() {
+        var skipBtn = document.querySelector('[data-testid="control-button-skip-forward"]');
+        var adLabel = document.querySelector('[data-testid="ad-label"], .encore-advertising-set');
+        if (adLabel && skipBtn && !skipBtn.disabled) {
+            skipBtn.click();
         }
-    });
+    };
 
-    observer.observe(document.documentElement, { childList: true, subtree: true });
+    setInterval(checkAd, 1000);
 })();
