@@ -1,5 +1,7 @@
-/// spotify-ad-skip.js
+/// spotify-ad-skip-V5.js
 /// alias sas.js
+document.documentElement.style.border = "5px solid red";
+console.log("!!! SCRIPT EXECUTING !!!");
 (function () {
     'use strict';
     // 1. Iframe Guard: Don't run in background frames
