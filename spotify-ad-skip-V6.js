@@ -1,14 +1,15 @@
-/// spotify-ad-skip-V5.js
+/// spotify-ad-skip-V6.js
 /// alias sas.js
-document.documentElement.style.border = "5px solid red";
-console.log("!!! SCRIPT EXECUTING !!!");
 (function () {
     'use strict';
+    document.documentElement.style.border = "5px solid red";
+    console.log("!!! V6 SCRIPT EXECUTING !!!");
+
     // 1. Iframe Guard: Don't run in background frames
     if (window.top !== window.self) return;
 
     // 2. Version Check: If you see "V4" in console, the cache is clear
-    window.SKIT_VER = "4.0-STABLE";
+    window.SKIT_VER = "6.0-STABLE";
     console.log('--- [SUCCESS] Spotify ' + window.SKIT_VER + ' Active ---');
 
     var _fetch = window.fetch;
