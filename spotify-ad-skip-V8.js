@@ -1,4 +1,4 @@
-/// spotify-ad-skip-V7.js
+/// spotify-ad-skip-V8.js
 /// alias sas.js
 (function () {
     'use strict';
@@ -7,7 +7,7 @@
     if (document.documentElement) {
         document.documentElement.style.border = "5px solid red";
     }
-    window.SKIT_VER = "7.0-ULTIMATE";
+    window.SKIT_VER = "8.0-ULTIMATE";
     console.log("!!! V7 SCRIPT EXECUTING !!!");
 
     // 2. Iframe Guard
