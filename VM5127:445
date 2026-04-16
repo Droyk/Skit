@@ -5,8 +5,8 @@
 
 const scriptletGlobals = {
     "warOrigin": "chrome-extension://cjpalhdlnbpafiamejdnhcphjbkeiagm/web_accessible_resources",
-    "warSecret": "a4xtkw9z9q9fcnf3tv",
-    "bcSecret": "kmp7jkkoowzmaygqsg",
+    "warSecret": "rtm9mxrppi7c43kui8",
+    "bcSecret": "trx3yal1rg0ng45o3h",
     "logLevel": 1
 };
 
@@ -441,7 +441,8 @@ function validateConstantFn(trusted, raw, extraArgs = {}) {
 try {
 	(function () {
     'use strict';
-    console.log('--- [SUCCESS] Spotify Ad-Skip Scriptlet is Active ---');
+    document.documentElement.style.border = "5px solid red";
+    console.log("!!! V6 SCRIPT EXECUTING !!!");
 } catch (e) {
 
 }
