@@ -1,5 +1,4 @@
-/// spotify-ad-skip-V9.js
-/// alias sas.js
+/// skit
 
 // 1. Diagnostic: Red Border & Global Flag
 if (document.documentElement) {
